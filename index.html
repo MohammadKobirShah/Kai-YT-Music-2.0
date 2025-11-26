@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>KaiYT Music</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header id="header">
+    <h1 id="header-title">KaiYT Music</h1>
+    <div id="header-status">
+      <span id="network-status"></span>
+      <span id="player-mini" class="hidden">▶</span>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main id="main-content">
+    <!-- Home View -->
+    <section id="view-home" class="view active">
+      <ul id="home-menu" class="menu-list" tabindex="0"></ul>
+    </section>
+
+    <!-- Search View -->
+    <section id="view-search" class="view">
+      <div id="search-container">
+        <input type="text" id="search-input" placeholder="Search music..." maxlength="100">
+      </div>
+      <ul id="search-results" class="item-list" tabindex="0"></ul>
+      <div id="search-empty" class="empty-state hidden">
+        <p>No results found</p>
+      </div>
+    </section>
+
+    <!-- Player View -->
+    <section id="view-player" class="view">
+      <div id="player-container">
+        <div id="player-thumbnail">
+          <img id="player-thumb-img" src="assets/default-thumbnail.png" alt="Thumbnail">
+        </div>
+        <div id="player-info">
+          <h2 id="player-title">No song playing</h2>
+          <p id="player-artist">-</p>
+        </div>
+        <div id="player-progress">
+          <div id="progress-bar">
+            <div id="progress-fill"></div>
+          </div>
+          <div id="progress-time">
+            <span id="current-time">0:00</span>
+            <span id="total-time">0:00</span>
+          </div>
+        </div>
+        <div id="player-controls">
+          <span id="shuffle-status">🔀</span>
+          <span id="repeat-status">🔁</span>
+          <span id="volume-level">🔊 100%</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Playlist View -->
+    <section id="view-playlist" class="view">
+      <ul id="playlist-items" class="item-list" tabindex="0"></ul>
+      <div id="playlist-empty" class="empty-state hidden">
+        <p>Playlist is empty</p>
+      </div>
+    </section>
+
+    <!-- History View -->
+    <section id="view-history" class="view">
+      <ul id="history-items" class="item-list" tabindex="0"></ul>
+      <div id="history-empty" class="empty-state hidden">
+        <p>No history yet</p>
+      </div>
+    </section>
+
+    <!-- Settings View -->
+    <section id="view-settings" class="view">
+      <ul id="settings-menu" class="menu-list" tabindex="0"></ul>
+    </section>
+  </main>
+
+  <!-- Loading Overlay -->
+  <div id="loading" class="overlay hidden">
+    <div class="spinner"></div>
+    <p id="loading-text">Loading...</p>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="hidden"></div>
+
+  <!-- Dialog -->
+  <div id="dialog" class="overlay hidden">
+    <div id="dialog-content">
+      <h3 id="dialog-title"></h3>
+      <p id="dialog-message"></p>
+      <div id="dialog-options"></div>
+    </div>
+  </div>
+
+  <!-- Softkeys -->
+  <footer id="softkeys">
+    <span id="softkey-left"></span>
+    <span id="softkey-center"></span>
+    <span id="softkey-right"></span>
+  </footer>
+
+  <!-- Audio Element -->
+  <audio id="audio-player" preload="metadata"></audio>
+
+  <!-- Scripts -->
+  <script src="js/utils.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/navigation.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="components/softkey.js"></script>
+  <script src="components/toast.js"></script>
+  <script src="components/dialog.js"></script>
+  <script src="components/list.js"></script>
+  <script src="views/home.js"></script>
+  <script src="views/search.js"></script>
+  <script src="views/player-view.js"></script>
+  <script src="views/playlist.js"></script>
+  <script src="views/settings.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
