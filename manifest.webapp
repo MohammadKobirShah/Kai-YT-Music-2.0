@@ -1,0 +1,31 @@
+{
+  "name": "KaiYT Music",
+  "short_name": "KaiYT",
+  "description": "YouTube Music client for KaiOS devices",
+  "version": "2.0.0",
+  "author": "KaiYT Team",
+  "launch_path": "/index.html",
+  "type": "privileged",
+  "origin": "app://kai-yt-music.localhost",
+  "icons": {
+    "56": "/icons/icon56.png",
+    "112": "/icons/icon112.png"
+  },
+  "permissions": {
+    "audio-channel-content": {
+      "description": "Required for background audio playback"
+    },
+    "systemXHR": {
+      "description": "Required for API requests"
+    },
+    "desktop-notification": {
+      "description": "Show now playing notifications"
+    },
+    "storage": {
+      "description": "Store playlists and settings"
+    }
+  },
+  "orientation": "portrait",
+  "fullscreen": false,
+  "cursor": false
+}
