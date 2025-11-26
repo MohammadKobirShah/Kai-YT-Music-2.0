@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KaiYT Music 2.0 • Simulator</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            height: 100vh;
+            background: #1e1e1e;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: system-ui, sans-serif;
+            color: #fff;
+        }
+        h1 {
+            margin: 0 0 20px 0;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+        #device {
+            position: relative;
+            width: 430px;
+            height: 880px;
+            background: #0a0a0a;
+            border-radius: 60px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.8);
+            overflow: hidden;
+        }
+        #screen-wrapper {
+            position: absolute;
+            top: 110px;
+            left: 95px;
+            transform: scale(2);
+            transform-origin: top left;
+        }
+        #screen {
+            width: 240px;
+            height: 320px;
+            background: #000;
+            overflow: hidden;
+            border: 3px solid #111;
+            border-radius: 4px;
+        }
+        iframe {
+            width: 240px;
+            height: 320px;
+            border: none;
+            display: block;
+        }
+        .controls {
+            position: absolute;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: grid;
+            grid-template-columns: repeat(3, 70px);
+            grid-template-rows: repeat(4, 70px);
+            gap: 15px;
+        }
+        .controls button {
+            background: rgba(255,255,255,0.12);
+            border: none;
+            border-radius: 16px;
+            color: #fff;
+            font-size: 28px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.2s;
+        }
+        .controls button:active {
+            background: rgba(255,255,255,0.3);
+            transform: scale(0.92);
+        }
+        .up    { grid-column: 2 / 3; grid-row: 1; }
+        .left  { grid-column: 1 / 2; grid-row: 2; }
+        .center{ grid-column: 2 / 3; grid-row: 2; font-size: 20px; }
+        .right { grid-column: 3 / 4; grid-row: 2; }
+        .down  { grid-column: 2 / 3; grid-row: 3; }
+        .softleft   { grid-column: 1 / 2; grid-row: 4; font-size: 14px; }
+        .softright  { grid-column: 3 / 4; grid-row: 4; font-size: 14px; }
+
+        .back-btn {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90px;
+            height: 50px;
+            background: rgba(255,255,255,0.12);
+            border: none;
+            border-radius: 25px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+        }
+        .info {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.95rem;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+
+<h1>KaiYT Music 2.0 • Simulator</h1>
+
+<div id="device">
+    <div id="screen-wrapper">
+        <div id="screen">
+            <iframe src="index.html" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button class="key up"        data-key="ArrowUp">↑</button>
+        <button class="key left"      data-key="ArrowLeft">←</button>
+        <button class="key center"    data-key="Enter">OK</button>
+        <button class="key right"     data-key="ArrowRight">→</button>
+        <button class="key down"      data-key="ArrowDown">↓</button>
+        <button class="key softleft"  data-key="SoftLeft">Soft L</button>
+        <button class="key softright" data-key="SoftRight">Soft R</button>
+    </div>
+
+    <button class="key back-btn" data-key="Backspace">Back</button>
+</div>
+
+<div class="info">
+    Keyboard shortcuts: ←↑→↓ • Enter (OK) • Backspace/Esc (Back) • 1 = SoftLeft • 3 = SoftRight
+</div>
+
+<script>
+    const iframe = document.querySelector('iframe');
+
+    function sendKey(type, key) {
+        if (iframe.contentWindow) {
+            const ev = new KeyboardEvent(type, { key, bubbles: true, cancelable: true });
+            iframe.contentWindow.dispatchEvent(ev);
+        }
+    }
+
+    // Virtual buttons (hold to repeat)
+    document.querySelectorAll('.key').forEach(btn => {
+        const key = btn.dataset.key;
+        btn.addEventListener('pointerdown', e => { e.preventDefault(); sendKey('keydown', key); });
+        btn.addEventListener('pointerup',   e => { e.preventDefault(); sendKey('keyup',   key); });
+        btn.addEventListener('pointerleave',() => sendKey('keyup', key));
+    });
+
+    // Physical keyboard support
+    const map = {
+        ArrowUp:    'ArrowUp',
+        ArrowDown:  'ArrowDown',
+        ArrowLeft:  'ArrowLeft',
+        ArrowRight: 'ArrowRight',
+        Enter:      'Enter',
+        Backspace:  'Backspace',
+        Escape:     'Backspace',
+        '1':        'SoftLeft',
+        '3':        'SoftRight'
+    };
+
+    document.addEventListener('keydown', e => {
+        if (map[e.key]) {
+            e.preventDefault();
+            sendKey('keydown', map[e.key]);
+        }
+    });
+    document.addEventListener('keyup', e => {
+        if (map[e.key]) {
+            e.preventDefault();
+            sendKey('keyup', map[e.key]);
+        }
+    });
+</script>
+
+</body>
+</html>
