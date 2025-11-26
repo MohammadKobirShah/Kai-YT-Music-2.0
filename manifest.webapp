@@ -3,6 +3,22 @@
   "short_name": "KaiYT",
   "description": "YouTube Music client for KaiOS devices",
   "version": "2.0.0",
+
+  "developer": {
+    "name": "KaiYT Team",
+    "url": "https://github.com/MohammadKobirShah/Kai-YT-Music-2.0"
+  },
+
+  "default_locale": "en",
+
+  "locales": {
+    "en": {
+      "name": "KaiYT Music",
+      "description": "YouTube Music client for KaiOS devices",
+      "short_name": "KaiYT"
+    }
+  },
+
   "author": "KaiYT Team",
   "launch_path": "/index.html",
   "type": "privileged",
